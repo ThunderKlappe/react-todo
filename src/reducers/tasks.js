@@ -4,6 +4,8 @@ const taskReducer = (state = [], action) => {
     //copy the array of tasks from the state into something I can modify
     let stateTemp = state.map(x => x);
     let taskNo;
+    let indexInfo;
+    let tempTask;
     switch (action.type) {
         case "ADD_TASK":
             //add the payload values from the form to the end of the task array
@@ -24,6 +26,15 @@ const taskReducer = (state = [], action) => {
             taskNo = getAncestor(action.payload.currentTarget, 6).dataset.task;
             //toggle the complete value at that index in the array
             stateTemp[taskNo].complete = !stateTemp[taskNo].complete;
+            //return the modified array as the new state
+            return stateTemp;
+        case "SWAP_TASKS":
+            //get the source and destination index from the payload
+            indexInfo = action.payload;
+            //get the task that was at the source index and remove it from the list
+            tempTask = stateTemp.splice(indexInfo.sourceIndex, 1)[0];
+            //put the task back into the array at the destination index
+            stateTemp.splice(indexInfo.destinationIndex, 0, tempTask);
             //return the modified array as the new state
             return stateTemp;
         default:

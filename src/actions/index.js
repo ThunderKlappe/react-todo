@@ -19,3 +19,9 @@ export const completeTask = e => {
         payload: e,
     };
 };
+export const swap = indexInfo => {
+    return {
+        type: "SWAP_TASKS",
+        payload: indexInfo,
+    };
+};
