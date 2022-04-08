@@ -35,24 +35,24 @@ function Task(props) {
                     <EditTask {...props} />
                 ) : (
                     <Row>
-                        <Col>
+                        <Col xs={6} sm={6} md={6} lg={6} xl={6} xxl={6}>
                             <div className="task-name">{props.taskName}</div>
                         </Col>
-                        <Col>
+                        <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
                             <div className="priority">{props.priority}</div>
                         </Col>
-                        <Col>
+                        <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
                             <div className="due-date">{dueDate}</div>
                         </Col>
                         <Col>
                             <Row>
-                                <Col>
+                                <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}>
                                     <CompleteButton complete={props.complete} />
                                 </Col>
-                                <Col>
+                                <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}>
                                     <DeleteButton />
                                 </Col>
-                                <Col>
+                                <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}>
                                     <EditButton />
                                 </Col>
                             </Row>

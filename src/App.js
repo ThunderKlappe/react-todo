@@ -27,7 +27,7 @@ function App() {
 
     return (
         <Container id="content">
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <Col md="auto">
                     <AddButton />
                 </Col>
@@ -36,6 +36,7 @@ function App() {
             <Row>{tasks.length > 0 ? <TaskHeader /> : ""}</Row>
 
             <MyDragDrop type="incomplete" draggables={incompleteTasks} />
+            <div id="complete-sep">Completed Tasks</div>
             <MyDragDrop type="complete" draggables={completeTasks} />
         </Container>
     );
