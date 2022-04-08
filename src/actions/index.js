@@ -25,3 +25,15 @@ export const swap = indexInfo => {
         payload: indexInfo,
     };
 };
+export const editTask = e => {
+    return {
+        type: "EDIT_TASK",
+        payload: e,
+    };
+};
+export const submitEditTask = (task, taskNo) => {
+    return {
+        type: "SUBMIT_EDIT_TASK",
+        payload: { task, taskNo },
+    };
+};

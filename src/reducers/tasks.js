@@ -13,6 +13,8 @@ const taskReducer = (state = [], action) => {
             stateTemp.push(action.payload);
             //set the new task to have the complete value be false
             stateTemp[stateTemp.length - 1].complete = false;
+            //set the new task to have the editable value be false
+            stateTemp[stateTemp.length - 1].editable = false;
             //return the modified array as the new state
             return stateTemp;
         case "DELETE_TASK":
@@ -55,6 +57,23 @@ const taskReducer = (state = [], action) => {
             //return the full new array as the new state
 
             return incompleteStateTemp;
+        case "EDIT_TASK":
+            //find out which task is being edited by looking at the parent's dataset
+            taskNo = getAncestor(action.payload.currentTarget, 6).dataset.task;
+            //toggle the editable property of that task
+            stateTemp[taskNo].editable = !stateTemp[taskNo].editable;
+            return stateTemp;
+
+        case "SUBMIT_EDIT_TASK":
+            //get the task that was edited
+            taskNo = action.payload.taskNo;
+            //set the task to have the new Values
+            stateTemp[taskNo].taskName = action.payload.task.taskName;
+            stateTemp[taskNo].priority = action.payload.task.priority;
+            stateTemp[taskNo].dueDate = action.payload.task.dueDate;
+            //toggle the task to no longer be editable;
+            stateTemp[taskNo].editable = !stateTemp[taskNo].editable;
+            return stateTemp;
         default:
             return state;
     }
