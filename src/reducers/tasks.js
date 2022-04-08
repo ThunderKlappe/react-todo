@@ -74,6 +74,9 @@ const taskReducer = (state = [], action) => {
             //toggle the task to no longer be editable;
             stateTemp[taskNo].editable = !stateTemp[taskNo].editable;
             return stateTemp;
+        case "LOAD_TASKS":
+            //return the loaded tasks from the payload
+            return action.payload;
         default:
             return state;
     }

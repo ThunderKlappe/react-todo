@@ -6,8 +6,10 @@ import DeleteButton from "./DeleteButton";
 import CompleteButton from "./CompleteButton";
 import EditButton from "./EditButton";
 import EditTask from "./EditTask";
+import { saveData } from "../dataStorage";
 
 function Task(props) {
+    saveData();
     const dueDate = format(props.dueDate || new Date(), "M/d/yyyy");
     return (
         <Container

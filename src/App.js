@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import AddButton from "./components/AddButton";
 import NewTask from "./components/NewTask";
@@ -8,11 +8,20 @@ import TaskHeader from "./components/TaskHeader";
 import { useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import MyDragDrop from "./components/MyDragDrop";
+import { loadData } from "./dataStorage";
 
+let loaded = false;
 function App() {
     const showInput = useSelector(state => state.showInput);
     const tasks = useSelector(state => state.tasks);
     const trueTasks = tasks.map(x => x);
+
+    
+    if(!loaded){
+        loadData();
+        loaded = true;
+    }
+   
 
     let incompleteTasks = [];
     let completeTasks = [];

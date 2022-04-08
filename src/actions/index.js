@@ -37,3 +37,9 @@ export const submitEditTask = (task, taskNo) => {
         payload: { task, taskNo },
     };
 };
+export const loadTasks = taskData => {
+    return {
+        type: "LOAD_TASKS",
+        payload: taskData,
+    };
+};
