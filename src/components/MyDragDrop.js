@@ -7,11 +7,13 @@ import { swap } from "../actions";
 
 function MyDragDrop(props) {
     const dispatch = useDispatch();
+
     function onDragEnd(results) {
         if (!results.destination) return;
+        const type = results.type;
         const sourceIndex = results.source.index;
         const destinationIndex = results.destination.index;
-        dispatch(swap({ sourceIndex, destinationIndex }));
+        dispatch(swap({ sourceIndex, destinationIndex, type }));
     }
     return (
         <DragDropContext onDragEnd={onDragEnd}>

@@ -3,9 +3,10 @@ import getAncestor from "../getAncestor";
 const taskReducer = (state = [], action) => {
     //copy the array of tasks from the state into something I can modify
     let stateTemp = state.map(x => x);
-    let taskNo;
-    let indexInfo;
-    let tempTask;
+    let taskNo, indexInfo, tempTask;
+    let completeStateTemp = [],
+        incompleteStateTemp = [];
+
     switch (action.type) {
         case "ADD_TASK":
             //add the payload values from the form to the end of the task array
@@ -31,12 +32,29 @@ const taskReducer = (state = [], action) => {
         case "SWAP_TASKS":
             //get the source and destination index from the payload
             indexInfo = action.payload;
-            //get the task that was at the source index and remove it from the list
-            tempTask = stateTemp.splice(indexInfo.sourceIndex, 1)[0];
-            //put the task back into the array at the destination index
-            stateTemp.splice(indexInfo.destinationIndex, 0, tempTask);
-            //return the modified array as the new state
-            return stateTemp;
+
+            //separate the tasks into a complete list and and incomplete list
+            stateTemp.forEach(task => {
+                task.complete ? completeStateTemp.push(task) : incompleteStateTemp.push(task);
+            });
+
+            //if the moved task was complete, move it in the Complete array, else move in Incomplete
+            if (indexInfo.type == "complete") {
+                //get the task that was at the source index and remove it from the list
+                tempTask = completeStateTemp.splice(indexInfo.sourceIndex, 1)[0];
+                //put the task back into the array at the destination index
+                completeStateTemp.splice(indexInfo.destinationIndex, 0, tempTask);
+            } else {
+                tempTask = incompleteStateTemp.splice(indexInfo.sourceIndex, 1)[0];
+                incompleteStateTemp.splice(indexInfo.destinationIndex, 0, tempTask);
+            }
+            //push the complete list onto the end of the incomplete list
+            completeStateTemp.forEach(task => {
+                incompleteStateTemp.push(task);
+            });
+            //return the full new array as the new state
+
+            return incompleteStateTemp;
         default:
             return state;
     }
