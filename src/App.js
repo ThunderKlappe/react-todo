@@ -76,6 +76,37 @@ function App() {
                     }}
                 </Droppable>
             </DragDropContext>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable type="complete" droppableId="complete">
+                    {provided => {
+                        return (
+                            <div className="complete" {...provided.droppableProps} ref={provided.innerRef}>
+                                {completeTasks.map((task, index) => {
+                                    return (
+                                        <Draggable
+                                            type="complete"
+                                            key={`key-${index}`}
+                                            draggableId={`id-${index}`}
+                                            index={index}
+                                        >
+                                            {provided => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <Row>{task}</Row>
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    );
+                                })}
+                                {provided.placeholder}
+                            </div>
+                        );
+                    }}
+                </Droppable>
+            </DragDropContext>
         </Container>
     );
 }
